@@ -1,11 +1,27 @@
 # from
 import datetime
 def find(st, arr, i, visited):
+    arr = []
     for idx, j in enumerate(arr):
         if visited[idx]:
             continue
         if j[i] == st:
-            return [[j, idx]]
+            arr.append([j, idx])
+    return arr
+
+def dfs(visited, arr, start, idToQuery, idToInsert):
+    st = [start]
+    z_elems = []
+    while (st):
+        ele = st.pop()
+        a = find(ele, arr, idToQuery, visited)
+        if a:
+            if visited[a[0][1]]:
+                continue
+            visited[a[0][1]] = True
+            z_elems.append(a[0][0][idToInsert])
+            st.append(a[0][0][idToInsert])
+    return z_elems
 
 def findWord(*args):
     resultString = []
@@ -13,31 +29,8 @@ def findWord(*args):
     for idx, i in enumerate(args[0]):
         if visited[idx]:
             continue
-        st = [i[0]]
-        z_elems = []
-        while (st):
-            ele = st.pop()
-            a = find(ele, args[0], 2, visited)
-            if a:
-                if visited[a[0][1]]:
-                    continue
-                visited[a[0][1]] = True
-                z_elems.append(a[0][0][0])
-                st.append(a[0][0][0])
-
-        n_elems = []
-        st = [i[2]]
-        while (st):
-            ele = st.pop()
-            a = find(ele, args[0], 0, visited)
-            # print(a)
-            if a:
-                if visited[a[0][1]]:
-                    continue
-                visited[a[0][1]] = True
-                st.append(a[0][0][2])
-                n_elems.append(a[0][0][2])
-
+        z_elems = dfs(visited, args[0], i[0], 2, 0)
+        n_elems = dfs(visited, args[0], i[2], 0, 2)
         stringToAppend = i
         for z_elem in z_elems:
             stringToAppend = z_elem +">" +stringToAppend
