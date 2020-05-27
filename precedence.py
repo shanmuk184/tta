@@ -28,11 +28,11 @@ def findWord(*args):
             continue
         z_elems = dfs(visited, args[0], i[0], 2, 0)
         n_elems = dfs(visited, args[0], i[2], 0, 2)
-        stringToAppend = i
+        stringToAppend = i # A>B
         for z_elem in z_elems:
-            stringToAppend = z_elem +">" +stringToAppend
+            stringToAppend = z_elem +">" +stringToAppend # C>A>B
         for n_elem in n_elems:
-            stringToAppend = stringToAppend+">"+n_elem
+            stringToAppend = stringToAppend+">"+n_elem# C>A>B>D
         resultString.append(stringToAppend)
 
     print(resultString[0].replace('>', ''))
