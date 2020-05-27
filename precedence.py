@@ -1,13 +1,10 @@
-# from
 import datetime
 def find(st, arr, i, visited):
-    arr = []
     for idx, j in enumerate(arr):
         if visited[idx]:
             continue
         if j[i] == st:
-            arr.append([j, idx])
-    return arr
+            return [[j, idx]]
 
 def dfs(visited, arr, start, idToQuery, idToInsert):
     st = [start]
